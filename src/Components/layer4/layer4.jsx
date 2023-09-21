@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Field } from '../layer4/Layer4.styled';
+import { Field } from '../layer4/layer4.styled';
 import { Card } from '../card/card';
 
 export const Layer4 = ({ getCards, pickPair, deleteCards, pair, clearPair, getCardsFromLayer, allCards, render }) => {
