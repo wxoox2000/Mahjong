@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 import { Layer2 } from '../layer2/Layer2';
 import { useEffect, useState } from 'react';
 import { Layer3 } from '../layer3/Layer3';
-import { Layer4 } from '../layer4/Layer4';
+import { Layer4 } from '../layer4/layer4';
 import { useTheme } from "../App";
 
 import Hatsu from '../../assets/tiles/Export/Regular/Hatsu.png';

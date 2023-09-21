@@ -31,7 +31,7 @@ const App = () => {
     <ThemeContext.Provider value={{theme}}>
       <Wrap $bgtheme={theme} className={changeBg ? 'change' : null}>
         <Routes>
-          <Route path="/" element={<StartScreen />}>
+          <Route path="/Mahjong/" element={<StartScreen />}>
             <Route path="settings" element={<Settings bg={BgColor} />} />
           </Route>
           <Route path="/game" element={<Playground />} />

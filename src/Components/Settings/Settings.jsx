@@ -12,7 +12,7 @@ export const Settings = ({ bg }) => {
   const onClick = () => {
     setClose(true);
     timerRef.current = setTimeout(() => {
-      navigate('/');
+      navigate('/Mahjong/');
     }, 700);
   };
   const PickTheme = e => {
