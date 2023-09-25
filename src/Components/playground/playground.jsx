@@ -1,97 +1,110 @@
-import { Layer1 } from '../layer1/Layer1';
-import { Playfield } from './playground.styled';
-import { nanoid } from 'nanoid';
-import { Layer2 } from '../layer2/Layer2';
-import { useEffect, useState } from 'react';
-import { Layer3 } from '../layer3/Layer3';
-import { Layer4 } from '../layer4/layer4';
+import { Layer1 } from "../layer1/Layer1";
+import {
+  Arrow,
+  Mute,
+  OptBtn,
+  Playfield,
+  SoundOff,
+  SoundOn,
+  UnMute,
+} from "./playground.styled";
+import { nanoid } from "nanoid";
+import { Layer2 } from "../layer2/Layer2";
+import { useEffect, useRef, useState } from "react";
+import { Layer3 } from "../layer3/Layer3";
+import { Layer4 } from "../layer4/layer4";
 import { useTheme } from "../App";
 
-import Hatsu from '../../assets/tiles/Export/Regular/Hatsu.png';
-import Chun from '../../assets/tiles/Export/Regular/Chun.png';
-import Sou1 from '../../assets/tiles/Export/Regular/Sou1.png';
-import Sou2 from '../../assets/tiles/Export/Regular/Sou2.png';
-import Sou3 from '../../assets/tiles/Export/Regular/Sou3.png';
-import Sou4 from '../../assets/tiles/Export/Regular/Sou4.png';
-import Sou5 from '../../assets/tiles/Export/Regular/Sou5.png';
-import Sou6 from '../../assets/tiles/Export/Regular/Sou6.png';
-import Sou7 from '../../assets/tiles/Export/Regular/Sou7.png';
-import Sou8 from '../../assets/tiles/Export/Regular/Sou8.png';
-import Sou9 from '../../assets/tiles/Export/Regular/Sou9.png';
-import Sou5Dora from '../../assets/tiles/Export/Regular/Sou5-Dora.png';
-import Man1 from '../../assets/tiles/Export/Regular/Man1.png';
-import Man2 from '../../assets/tiles/Export/Regular/Man2.png';
-import Man3 from '../../assets/tiles/Export/Regular/Man3.png';
-import Man4 from '../../assets/tiles/Export/Regular/Man4.png';
-import Man5 from '../../assets/tiles/Export/Regular/Man5.png';
-import Man6 from '../../assets/tiles/Export/Regular/Man6.png';
-import Man7 from '../../assets/tiles/Export/Regular/Man7.png';
-import Man8 from '../../assets/tiles/Export/Regular/Man8.png';
-import Man9 from '../../assets/tiles/Export/Regular/Man9.png';
-import Man5Dora from '../../assets/tiles/Export/Regular/Man5-Dora.png';
-import Nun from '../../assets/tiles/Export/Regular/Nan.png';
-import Pei from '../../assets/tiles/Export/Regular/Pei.png';
-import Pin1 from '../../assets/tiles/Export/Regular/Pin1.png';
-import Pin2 from '../../assets/tiles/Export/Regular/Pin2.png';
-import Pin3 from '../../assets/tiles/Export/Regular/Pin3.png';
-import Pin4 from '../../assets/tiles/Export/Regular/Pin4.png';
-import Pin5 from '../../assets/tiles/Export/Regular/Pin5.png';
-import Pin6 from '../../assets/tiles/Export/Regular/Pin6.png';
-import Pin7 from '../../assets/tiles/Export/Regular/Pin7.png';
-import Pin8 from '../../assets/tiles/Export/Regular/Pin8.png';
-import Pin9 from '../../assets/tiles/Export/Regular/Pin9.png';
-import Pin5Dora from '../../assets/tiles/Export/Regular/Pin5-Dora.png';
-import Ton from '../../assets/tiles/Export/Regular/Ton.png';
-import Shaa from '../../assets/tiles/Export/Regular/Shaa.png';
+import Hatsu from "../../assets/tiles/Export/Regular/Hatsu.png";
+import Chun from "../../assets/tiles/Export/Regular/Chun.png";
+import Sou1 from "../../assets/tiles/Export/Regular/Sou1.png";
+import Sou2 from "../../assets/tiles/Export/Regular/Sou2.png";
+import Sou3 from "../../assets/tiles/Export/Regular/Sou3.png";
+import Sou4 from "../../assets/tiles/Export/Regular/Sou4.png";
+import Sou5 from "../../assets/tiles/Export/Regular/Sou5.png";
+import Sou6 from "../../assets/tiles/Export/Regular/Sou6.png";
+import Sou7 from "../../assets/tiles/Export/Regular/Sou7.png";
+import Sou8 from "../../assets/tiles/Export/Regular/Sou8.png";
+import Sou9 from "../../assets/tiles/Export/Regular/Sou9.png";
+import Sou5Dora from "../../assets/tiles/Export/Regular/Sou5-Dora.png";
+import Man1 from "../../assets/tiles/Export/Regular/Man1.png";
+import Man2 from "../../assets/tiles/Export/Regular/Man2.png";
+import Man3 from "../../assets/tiles/Export/Regular/Man3.png";
+import Man4 from "../../assets/tiles/Export/Regular/Man4.png";
+import Man5 from "../../assets/tiles/Export/Regular/Man5.png";
+import Man6 from "../../assets/tiles/Export/Regular/Man6.png";
+import Man7 from "../../assets/tiles/Export/Regular/Man7.png";
+import Man8 from "../../assets/tiles/Export/Regular/Man8.png";
+import Man9 from "../../assets/tiles/Export/Regular/Man9.png";
+import Man5Dora from "../../assets/tiles/Export/Regular/Man5-Dora.png";
+import Nun from "../../assets/tiles/Export/Regular/Nan.png";
+import Pei from "../../assets/tiles/Export/Regular/Pei.png";
+import Pin1 from "../../assets/tiles/Export/Regular/Pin1.png";
+import Pin2 from "../../assets/tiles/Export/Regular/Pin2.png";
+import Pin3 from "../../assets/tiles/Export/Regular/Pin3.png";
+import Pin4 from "../../assets/tiles/Export/Regular/Pin4.png";
+import Pin5 from "../../assets/tiles/Export/Regular/Pin5.png";
+import Pin6 from "../../assets/tiles/Export/Regular/Pin6.png";
+import Pin7 from "../../assets/tiles/Export/Regular/Pin7.png";
+import Pin8 from "../../assets/tiles/Export/Regular/Pin8.png";
+import Pin9 from "../../assets/tiles/Export/Regular/Pin9.png";
+import Pin5Dora from "../../assets/tiles/Export/Regular/Pin5-Dora.png";
+import Ton from "../../assets/tiles/Export/Regular/Ton.png";
+import Shaa from "../../assets/tiles/Export/Regular/Shaa.png";
 
-import Hatsu_D from '../../assets/tiles/Export/Black/Hatsu.png';
-import Chun_D from '../../assets/tiles/Export/Black/Chun.png';
-import Sou1_D from '../../assets/tiles/Export/Black/Sou1.png';
-import Sou2_D from '../../assets/tiles/Export/Black/Sou2.png';
-import Sou3_D from '../../assets/tiles/Export/Black/Sou3.png';
-import Sou4_D from '../../assets/tiles/Export/Black/Sou4.png';
-import Sou5_D from '../../assets/tiles/Export/Black/Sou5.png';
-import Sou6_D from '../../assets/tiles/Export/Black/Sou6.png';
-import Sou7_D from '../../assets/tiles/Export/Black/Sou7.png';
-import Sou8_D from '../../assets/tiles/Export/Black/Sou8.png';
-import Sou9_D from '../../assets/tiles/Export/Black/Sou9.png';
-import Sou5Dora_D from '../../assets/tiles/Export/Black/Sou5-Dora.png';
-import Man1_D from '../../assets/tiles/Export/Black/Man1.png';
-import Man2_D from '../../assets/tiles/Export/Black/Man2.png';
-import Man3_D from '../../assets/tiles/Export/Black/Man3.png';
-import Man4_D from '../../assets/tiles/Export/Black/Man4.png';
-import Man5_D from '../../assets/tiles/Export/Black/Man5.png';
-import Man6_D from '../../assets/tiles/Export/Black/Man6.png';
-import Man7_D from '../../assets/tiles/Export/Black/Man7.png';
-import Man8_D from '../../assets/tiles/Export/Black/Man8.png';
-import Man9_D from '../../assets/tiles/Export/Black/Man9.png';
-import Man5Dora_D from '../../assets/tiles/Export/Black/Man5-Dora.png';
-import Nun_D from '../../assets/tiles/Export/Black/Nan.png';
-import Pei_D from '../../assets/tiles/Export/Black/Pei.png';
-import Pin1_D from '../../assets/tiles/Export/Black/Pin1.png';
-import Pin2_D from '../../assets/tiles/Export/Black/Pin2.png';
-import Pin3_D from '../../assets/tiles/Export/Black/Pin3.png';
-import Pin4_D from '../../assets/tiles/Export/Black/Pin4.png';
-import Pin5_D from '../../assets/tiles/Export/Black/Pin5.png';
-import Pin6_D from '../../assets/tiles/Export/Black/Pin6.png';
-import Pin7_D from '../../assets/tiles/Export/Black/Pin7.png';
-import Pin8_D from '../../assets/tiles/Export/Black/Pin8.png';
-import Pin9_D from '../../assets/tiles/Export/Black/Pin9.png';
-import Pin5Dora_D from '../../assets/tiles/Export/Black/Pin5-Dora.png';
-import Ton_D from '../../assets/tiles/Export/Black/Ton.png';
-import Shaa_D from '../../assets/tiles/Export/Black/Shaa.png';
+import Hatsu_D from "../../assets/tiles/Export/Black/Hatsu.png";
+import Chun_D from "../../assets/tiles/Export/Black/Chun.png";
+import Sou1_D from "../../assets/tiles/Export/Black/Sou1.png";
+import Sou2_D from "../../assets/tiles/Export/Black/Sou2.png";
+import Sou3_D from "../../assets/tiles/Export/Black/Sou3.png";
+import Sou4_D from "../../assets/tiles/Export/Black/Sou4.png";
+import Sou5_D from "../../assets/tiles/Export/Black/Sou5.png";
+import Sou6_D from "../../assets/tiles/Export/Black/Sou6.png";
+import Sou7_D from "../../assets/tiles/Export/Black/Sou7.png";
+import Sou8_D from "../../assets/tiles/Export/Black/Sou8.png";
+import Sou9_D from "../../assets/tiles/Export/Black/Sou9.png";
+import Sou5Dora_D from "../../assets/tiles/Export/Black/Sou5-Dora.png";
+import Man1_D from "../../assets/tiles/Export/Black/Man1.png";
+import Man2_D from "../../assets/tiles/Export/Black/Man2.png";
+import Man3_D from "../../assets/tiles/Export/Black/Man3.png";
+import Man4_D from "../../assets/tiles/Export/Black/Man4.png";
+import Man5_D from "../../assets/tiles/Export/Black/Man5.png";
+import Man6_D from "../../assets/tiles/Export/Black/Man6.png";
+import Man7_D from "../../assets/tiles/Export/Black/Man7.png";
+import Man8_D from "../../assets/tiles/Export/Black/Man8.png";
+import Man9_D from "../../assets/tiles/Export/Black/Man9.png";
+import Man5Dora_D from "../../assets/tiles/Export/Black/Man5-Dora.png";
+import Nun_D from "../../assets/tiles/Export/Black/Nan.png";
+import Pei_D from "../../assets/tiles/Export/Black/Pei.png";
+import Pin1_D from "../../assets/tiles/Export/Black/Pin1.png";
+import Pin2_D from "../../assets/tiles/Export/Black/Pin2.png";
+import Pin3_D from "../../assets/tiles/Export/Black/Pin3.png";
+import Pin4_D from "../../assets/tiles/Export/Black/Pin4.png";
+import Pin5_D from "../../assets/tiles/Export/Black/Pin5.png";
+import Pin6_D from "../../assets/tiles/Export/Black/Pin6.png";
+import Pin7_D from "../../assets/tiles/Export/Black/Pin7.png";
+import Pin8_D from "../../assets/tiles/Export/Black/Pin8.png";
+import Pin9_D from "../../assets/tiles/Export/Black/Pin9.png";
+import Pin5Dora_D from "../../assets/tiles/Export/Black/Pin5-Dora.png";
+import Ton_D from "../../assets/tiles/Export/Black/Ton.png";
+import Shaa_D from "../../assets/tiles/Export/Black/Shaa.png";
+import { useNavigate } from "react-router-dom";
 
-export const Playground = () => {
-  const { theme } = useTheme();
+export const Playground = ({ fx, music, sound, level }) => {
+  const { theme, musicKnob, soundKnob } = useTheme();
   const [pair, setPair] = useState([]);
   const [allCards, setAllCards] = useState([]);
   const [layer1, setLayer1] = useState(true);
   const [layer2, setLayer2] = useState(true);
   const [layer3, setLayer3] = useState(true);
   const [layer4, setLayer4] = useState(true);
+  const [close, setClose] = useState(false);
+  const navigate = useNavigate();
+  const timerRef = useRef();
+
   // const [isPair, setIsPair] = useState(false);
   let colorsArr = [];
-  if (theme !== 'art') {
+  if (theme !== "art") {
     colorsArr = [
       Hatsu,
       Chun,
@@ -172,7 +185,7 @@ export const Playground = () => {
   }
   function getRandomColor() {
     const num = Math.floor(Math.random() * 36);
-    if (theme !== 'art') {
+    if (theme !== "art") {
       switch (num) {
         case 0:
           return Hatsu;
@@ -358,12 +371,12 @@ export const Playground = () => {
   // };
   const getCardsFromLayer = (layer, cardsArr) => {
     if (allCards.length === 0) {
-      setAllCards(cards => [...cards, { layer, cardsArr }]);
+      setAllCards((cards) => [...cards, { layer, cardsArr }]);
       return;
     }
-    const allCardsFilter = allCards.filter(item => item.layer !== layer);
+    const allCardsFilter = allCards.filter((item) => item.layer !== layer);
     console.log(allCardsFilter);
-    if (cardsArr[0] === 'empty') {
+    if (cardsArr[0] === "empty") {
       setAllCards([...allCardsFilter]);
       return;
     }
@@ -418,7 +431,7 @@ export const Playground = () => {
         clearPair();
         return;
       }
-      setPair(pair => [...pair, { color, id }]);
+      setPair((pair) => [...pair, { color, id }]);
     }
   };
   const clearPair = () => {
@@ -432,10 +445,11 @@ export const Playground = () => {
       }
       continue;
     }
+    fx();
     clearPair();
     return filterCadrs;
   };
-  const renderLayers = layer => {
+  const renderLayers = (layer) => {
     switch (layer) {
       case 1:
         setLayer1(false);
@@ -454,8 +468,83 @@ export const Playground = () => {
         break;
     }
   };
+  const [filtered, setFiltered] = useState(false);
+  // Effect to filter odd cards
   useEffect(() => {
-    const all = allCards.flatMap(l => l.cardsArr);
+    if (filtered || level) {
+      return;
+    }
+    setTimeout(() => {
+      const all = allCards.flatMap((l) => l.cardsArr);
+      let count = {};
+      for (let j = 0; j < colorsArr.length; j++) {
+        count[colorsArr[j]] = 0;
+      }
+      for (let i = 0; i < all.length; i++) {
+        count[all[i].color] += 1;
+      }
+
+      console.log(all, allCards, count);
+      let countOdd = {};
+      let toChange = "";
+      for (const img in count) {
+        if (count[img] % 2 !== 0) {
+          countOdd[img] = all.find((card) => card.color === img).id;
+        } else {
+          toChange = img;
+        }
+      }
+      console.log(countOdd, toChange);
+      for (let i = 0; i < Object.values(countOdd).length; i += 1) {
+        const oddCard = all.findIndex(
+          (card) => card.id === Object.values(countOdd)[i]
+        );
+        all[oddCard].color = toChange;
+      }
+      let allWithoutOdd = [
+        { layer: 1, cardsArr: [] },
+        { layer: 2, cardsArr: [] },
+        { layer: 3, cardsArr: [] },
+        { layer: 4, cardsArr: [] },
+      ];
+      for (let i = 0; i < all.length; i++) {
+        switch (all[i].layer) {
+          case 1:
+            allWithoutOdd[0].cardsArr.push(all[i]);
+            break;
+          case 2:
+            allWithoutOdd[1].cardsArr.push(all[i]);
+            break;
+          case 3:
+            allWithoutOdd[2].cardsArr.push(all[i]);
+            break;
+          case 4:
+            allWithoutOdd[3].cardsArr.push(all[i]);
+            break;
+          default:
+            break;
+        }
+      }
+      console.log(allWithoutOdd);
+      setAllCards(allWithoutOdd);
+      setFiltered(true);
+    }, 1000);
+    // 1. Перебрать count по нечетным картинкам - в каждой взять по одной карточке ее id;
+    // 2. Найти эти id в allcards и заменить color на одиникавый рандомный;
+    // 3. Сделать setAllCards.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allCards]);
+
+  useEffect(() => {
+    if(!level) {
+      console.log('No check');
+      return;
+    }
+    const all = allCards.flatMap((l) => l.cardsArr);
+    if(all.length > 50) {
+      console.log('too many cards');
+      return;
+    }
     let count = {};
     for (let j = 0; j < colorsArr.length; j++) {
       count[colorsArr[j]] = 0;
@@ -463,15 +552,32 @@ export const Playground = () => {
     for (let i = 0; i < all.length; i++) {
       count[all[i].color] += 1;
     }
-    console.log(all, allCards, count);
-    // 1. Перебрать count по нечетным картинкам - в каждой взять по одной карточке ее id;
-    // 2. Найти эти id в allcards и заменить color на одиникавый рандомный;
-    // 3. Сделать setAllCards.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    let moveChecker = Object.values(count).every((num) => num <=1);
+    let winning = Object.values(count).every((num) => num ===0);
+    if(moveChecker && !winning) {
+      console.log('No more moves, Try again!');
+    }
+    console.log(moveChecker, count);
   }, [allCards]);
+  const play = () => {
+    music(!musicKnob);
+  };
+  const playSound = () => {
+    sound(!soundKnob);
+  };
+  const back = () => {
+    setClose(true);
+    timerRef.current = setTimeout(() => {
+      navigate("/Mahjong/");
+    }, 700);
+  };
 
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <Playfield>
+    <Playfield className={close && "closing"}>
       {layer1 && (
         <Layer1
           getCards={getCards}
@@ -520,6 +626,23 @@ export const Playground = () => {
           render={renderLayers}
         />
       )}
+      <OptBtn onClick={play} $cur_theme={theme}>
+        {musicKnob ? (
+          <SoundOn $cur_theme={theme} style={{ width: 60, height: 60 }} />
+        ) : (
+          <SoundOff $cur_theme={theme} style={{ width: 60, height: 60 }} />
+        )}
+      </OptBtn>
+      <OptBtn onClick={playSound} $cur_theme={theme} style={{ right: -300 }}>
+        {soundKnob ? (
+          <UnMute $cur_theme={theme} style={{ width: 50, height: 50 }} />
+        ) : (
+          <Mute $cur_theme={theme} style={{ width: 50, height: 50 }} />
+        )}
+      </OptBtn>
+      <OptBtn $cur_theme={theme} style={{ left: -200 }} onClick={back}>
+        <Arrow $cur_theme={theme} />
+      </OptBtn>
     </Playfield>
   );
 };
