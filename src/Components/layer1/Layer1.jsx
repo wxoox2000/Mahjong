@@ -13,7 +13,6 @@ export const Layer1 = ({ getCards, pickPair, deleteCards, pair, clearPair, getCa
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    console.log(cards);
     if(cards.length ===0 && !mount) {
       setMount(true)
       return;
@@ -27,15 +26,6 @@ export const Layer1 = ({ getCards, pickPair, deleteCards, pair, clearPair, getCa
         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cards])
 
-  // old effect 
-  // useEffect(() => {
-  //   if(cards.length ===0) {
-  //     getCardsFromLayer(1, cards);
-  //     return;
-  //   }
-  //   getCardsFromLayer(1, cards);
-  //       // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [cards])
   
   useEffect(() => {
     if (pair.length !== 2) {

@@ -6,7 +6,6 @@ export const Card = ({ color, id, pickPair, isPair, pos, layer, allCards }) => {
   const highestLayer = allCards.map(item => item.layer).sort()[
     allCards.length - 1
   ];
-  // console.log(highestLayer);
   const { theme } = useTheme();
   const [clicked, setClicked] = useState(false);
   const [curPair, setCurPair] = useState(null);
@@ -26,22 +25,6 @@ export const Card = ({ color, id, pickPair, isPair, pos, layer, allCards }) => {
     const left = parseInt(position.left);
     const top = parseInt(position.top);
     const sharedPos = (arr, layer) => {
-      // let topShift = 0;
-      // let leftShift = 0;
-      // switch (layer) {
-      //   case 1:
-      //     break;
-      //   case 2:
-      //     topShift = 50;
-      //     leftShift = 25;
-      //     break;
-      //     case 3:
-      //     topShift = 100;
-      //     leftShift = 50;
-      //     break;
-      //   default:
-      //     break;
-      // }
       let entrance = [];
       for (let i = 0; i < arr.length; i++) {
         if (

@@ -73,7 +73,6 @@ const App = () => {
   const bgPlay = (bool) => {
       if(bool) {
         setMusicKnob(true);
-        console.log(A_bgMusic.current.volume);
         if(A_bgMusic.current.volume > 0.5){
           A_bgMusic.current.play()
           return;
@@ -82,14 +81,12 @@ const App = () => {
         A_bgMusic.current.volume = 0;
         let timer = null;
         timer = setInterval(() => {
-          // console.log(A_bgMusic.current.volume);
           if(A_bgMusic.current.volume >=0.9){
             clearInterval(timer)
           }
           A_bgMusic.current.volume = (A_bgMusic.current.volume +0.01).toFixed(2);
         }, 10);
       } else{
-        // A_bgMusic.current.volume = 0.99;
         setMusicKnob(false);
         if(A_bgMusic.current.volume < 0.8){
           A_bgMusic.current.pause()
@@ -97,7 +94,6 @@ const App = () => {
         }
         let timer = null;
         timer = setInterval(() => {
-          // console.log(A_bgMusic.current.volume);
           if(A_bgMusic.current.volume <0.1){
             clearInterval(timer)
           }
@@ -109,9 +105,7 @@ const App = () => {
       }
   };
   const nextSong = () => {
-    console.log('ended');
     if(trackPosition === playlist.length -1){
-      console.log('zeroing playlist', trackPosition);
       setTrackPosition(0);
       setMusic(playlist[trackPosition]);
       setTimeout(() => {
@@ -120,7 +114,6 @@ const App = () => {
       return;
     }
     setTrackPosition(trackPosition +1)
-    console.log(trackPosition);
 }
 useEffect(() => {
   if (!musicKnob) {
@@ -157,7 +150,6 @@ const soundFX = (bool) => {
     setLevel(!level)
   }
 
-  console.log(window.screen);
   return (
     <ThemeContext.Provider value={{ theme, musicKnob, soundKnob, wrongPairFX }}>
       <Wrap $bgtheme={theme} className={changeBg ? "change" : null}>

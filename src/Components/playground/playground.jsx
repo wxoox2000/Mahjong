@@ -107,7 +107,6 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
   const navigate = useNavigate();
   const timerRef = useRef();
 
-  // const [isPair, setIsPair] = useState(false);
   let colorsArr = [];
   if (theme !== "art") {
     colorsArr = [
@@ -380,7 +379,6 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
       return;
     }
     const allCardsFilter = allCards.filter((item) => item.layer !== layer);
-    console.log(allCardsFilter);
     if (cardsArr[0] === "empty") {
       setAllCards([...allCardsFilter]);
       return;
@@ -397,11 +395,9 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
     // if (layer === 2) {
     //   cardAmount = 170;
     // }
-    console.log(cardAmount);
     let cardArray = [];
     let row = 0;
     let col = -1;
-    // сделать просто < вместо <=  ???
     for (let i = 0; i < cardAmount; i++) {
       if (i % Number((width / 50).toFixed(0)) === 0 && i !== 0) {
         row += 1;
@@ -426,7 +422,6 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
       };
       cardArray.push(card);
     }
-    // const adjusted = adjustArray(cardArray, cardAmount);
     return cardArray;
   };
   const pickPair = (color, id) => {
@@ -490,7 +485,6 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
         count[all[i].color] += 1;
       }
 
-      console.log(all, allCards, count);
       let countOdd = {};
       let toChange = "";
       for (const img in count) {
@@ -500,7 +494,6 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
           toChange = img;
         }
       }
-      console.log(countOdd, toChange);
       for (let i = 0; i < Object.values(countOdd).length; i += 1) {
         const oddCard = all.findIndex(
           (card) => card.id === Object.values(countOdd)[i]
@@ -531,13 +524,11 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
             break;
         }
       }
-      console.log(allWithoutOdd);
       setAllCards(allWithoutOdd);
       setFiltered(true);
     }, 1000);
     setTimeout(() => {
       const all = allCards.flatMap((l) => l.cardsArr);
-      console.log(all);
       let count = {};
       for (let j = 0; j < colorsArr.length; j++) {
         count[colorsArr[j]] = 0;
@@ -546,23 +537,17 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
         count[all[i].color] += 1;
       }
 
-      console.log(count);
     }, 5000);
-    // 1. Перебрать count по нечетным картинкам - в каждой взять по одной карточке ее id;
-    // 2. Найти эти id в allcards и заменить color на одиникавый рандомный;
-    // 3. Сделать setAllCards.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCards]);
 
   // Cheking moves
   useEffect(() => {
     if (!level) {
-      console.log("No check");
       return;
     }
     const all = allCards.flatMap((l) => l.cardsArr);
     if (all.length > 50) {
-      console.log("too many cards");
       return;
     }
     let count = {};
@@ -577,16 +562,13 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
     if (moveChecker && !winning) {
       setLose(true);
       loseFX()
-      console.log("No more moves, Try again!");
     }
-    console.log(moveChecker, count);
   }, [allCards]);
   //Check victory
   const gameStarted = () => {
     if(start) {
       return;
     }
-    console.log("start");
     setStart(true);
   };
   useEffect(() => {
@@ -614,7 +596,6 @@ export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const endGame = victory || lose;
-  console.log(endGame);
   return (
     <Playfield className={close && "closing"}>
       {endGame && (

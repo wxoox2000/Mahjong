@@ -12,7 +12,6 @@ export const Layer3 = ({ getCards, pickPair, deleteCards, pair, clearPair, getCa
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
-    console.log(cards);
     if(cards.length ===0 && !mount) {
       setMount(true)
       return;

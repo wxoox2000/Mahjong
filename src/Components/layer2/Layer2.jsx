@@ -14,7 +14,6 @@ export const Layer2 = ({ getCards, pickPair, deleteCards, pair, clearPair, getCa
   }, []);
   useEffect(() => {
     if(cards.length === 172){
-      console.log(cards.find(({position}) => position.top === '900px'));
       const deleteLast = cards.filter(({position}) =>position.top !== '900px' );
       setCards(deleteLast)  ;
     }
