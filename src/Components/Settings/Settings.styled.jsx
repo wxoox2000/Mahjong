@@ -14,29 +14,29 @@ import { AiOutlineQuestionCircle } from "react-icons/ai";
 const popUp = keyframes`
     0% {
       opacity: 0;
-      transform: scale(0.1) translateY(1200px);
+      transform: scale(0.1);
     }
     50% {
         opacity: 0.6;
-        transform: scale(0.4) translateY(0px);
+        transform: scale(0.4);
     }
     100% {
       opacity: 1;
-      transform: scale(1) translateY(0px);
+      transform: scale(1);
     }
 `;
 const popOut = keyframes`
     0% {
       opacity: 1;
-      transform: scale(1) translateY(0px);
+      transform: scale(1);
     }
     50% {
         opacity: 0.6;
-        transform: scale(0.4) translateY(0px);
+        transform: scale(0.4);
     }
     100% {
         opacity: 0;
-        transform: scale(0.1) translateY(1000px);
+        transform: scale(0.1);
     }
 `;
 

@@ -36,6 +36,7 @@ export const Wrap = styled.div`
   justify-content: space-around;
   align-items: center;
   backdrop-filter: blur(10px);
+  zoom: 0.6;
 
   border-top: 3px solid ${p => p.theme[p.$cur_theme].main.borderTop};
   border-bottom: 7px solid ${p => p.theme[p.$cur_theme].main.borderTop};

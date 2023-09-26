@@ -18,6 +18,7 @@ export const StartScreen = ({fx}) => {
         <Wrap $cur_theme={theme} className={newgame && 'close'}>
         <MainBtn $cur_theme={theme} onClick={NewGame}>New Game</MainBtn>
         <MainBtn $cur_theme={theme} to='settings'> Settings</MainBtn>
+        <MainBtn $cur_theme={theme} to='credits'> Credits</MainBtn>
         <Outlet />
         </Wrap>
     )

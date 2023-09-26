@@ -97,7 +97,6 @@ export const Card = ({ color, id, pickPair, isPair, pos, layer, allCards }) => {
     allowCardPick(layer, pos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCards]);
-
   return (
     <MojangCard
       $cur_theme={theme}

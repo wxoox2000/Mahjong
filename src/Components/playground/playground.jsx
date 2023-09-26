@@ -7,6 +7,8 @@ import {
   SoundOff,
   SoundOn,
   UnMute,
+  VictoryWrap,
+  VText,
 } from "./playground.styled";
 import { nanoid } from "nanoid";
 import { Layer2 } from "../layer2/Layer2";
@@ -90,7 +92,7 @@ import Ton_D from "../../assets/tiles/Export/Black/Ton.png";
 import Shaa_D from "../../assets/tiles/Export/Black/Shaa.png";
 import { useNavigate } from "react-router-dom";
 
-export const Playground = ({ fx, music, sound, level }) => {
+export const Playground = ({ fx, victoryFX, loseFX, music, sound, level }) => {
   const { theme, musicKnob, soundKnob } = useTheme();
   const [pair, setPair] = useState([]);
   const [allCards, setAllCards] = useState([]);
@@ -99,6 +101,9 @@ export const Playground = ({ fx, music, sound, level }) => {
   const [layer3, setLayer3] = useState(true);
   const [layer4, setLayer4] = useState(true);
   const [close, setClose] = useState(false);
+  const [victory, setVictory] = useState(false);
+  const [lose, setLose] = useState(false);
+  const [start, setStart] = useState(false);
   const navigate = useNavigate();
   const timerRef = useRef();
 
@@ -386,17 +391,18 @@ export const Playground = ({ fx, music, sound, level }) => {
     const width = ref.current.getBoundingClientRect().width;
     const height = ref.current.getBoundingClientRect().height;
     let cardAmount = ((width / 50) * height) / 100;
-    if (layer === 4) {
-      cardAmount++;
-    }
-    if (layer === 2) {
-      cardAmount = 170;
-    }
+    // if (layer === 4) {
+    //   cardAmount++;
+    // }
+    // if (layer === 2) {
+    //   cardAmount = 170;
+    // }
     console.log(cardAmount);
     let cardArray = [];
     let row = 0;
     let col = -1;
-    for (let i = 0; i <= cardAmount; i++) {
+    // сделать просто < вместо <=  ???
+    for (let i = 0; i < cardAmount; i++) {
       if (i % Number((width / 50).toFixed(0)) === 0 && i !== 0) {
         row += 1;
         col = -1;
@@ -529,20 +535,34 @@ export const Playground = ({ fx, music, sound, level }) => {
       setAllCards(allWithoutOdd);
       setFiltered(true);
     }, 1000);
+    setTimeout(() => {
+      const all = allCards.flatMap((l) => l.cardsArr);
+      console.log(all);
+      let count = {};
+      for (let j = 0; j < colorsArr.length; j++) {
+        count[colorsArr[j]] = 0;
+      }
+      for (let i = 0; i < all.length; i++) {
+        count[all[i].color] += 1;
+      }
+
+      console.log(count);
+    }, 5000);
     // 1. Перебрать count по нечетным картинкам - в каждой взять по одной карточке ее id;
     // 2. Найти эти id в allcards и заменить color на одиникавый рандомный;
     // 3. Сделать setAllCards.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allCards]);
 
+  // Cheking moves
   useEffect(() => {
-    if(!level) {
-      console.log('No check');
+    if (!level) {
+      console.log("No check");
       return;
     }
     const all = allCards.flatMap((l) => l.cardsArr);
-    if(all.length > 50) {
-      console.log('too many cards');
+    if (all.length > 50) {
+      console.log("too many cards");
       return;
     }
     let count = {};
@@ -552,12 +572,29 @@ export const Playground = ({ fx, music, sound, level }) => {
     for (let i = 0; i < all.length; i++) {
       count[all[i].color] += 1;
     }
-    let moveChecker = Object.values(count).every((num) => num <=1);
-    let winning = Object.values(count).every((num) => num ===0);
-    if(moveChecker && !winning) {
-      console.log('No more moves, Try again!');
+    let moveChecker = Object.values(count).every((num) => num <= 1);
+    let winning = Object.values(count).every((num) => num === 0);
+    if (moveChecker && !winning) {
+      setLose(true);
+      loseFX()
+      console.log("No more moves, Try again!");
     }
     console.log(moveChecker, count);
+  }, [allCards]);
+  //Check victory
+  const gameStarted = () => {
+    if(start) {
+      return;
+    }
+    console.log("start");
+    setStart(true);
+  };
+  useEffect(() => {
+    const all = allCards.flatMap((l) => l.cardsArr);
+    if (all.length === 0 && start) {
+      setVictory(true);
+      victoryFX()
+    }
   }, [allCards]);
   const play = () => {
     music(!musicKnob);
@@ -576,8 +613,17 @@ export const Playground = ({ fx, music, sound, level }) => {
     return () => clearTimeout(timerRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const endGame = victory || lose;
+  console.log(endGame);
   return (
     <Playfield className={close && "closing"}>
+      {endGame && (
+        <VictoryWrap $cur_theme={theme}>
+          <VText $cur_theme={theme}>
+            {victory ? 'Congratulations!!!' : 'No more moves left...'}
+          </VText>
+        </VictoryWrap>
+      )}
       {layer1 && (
         <Layer1
           getCards={getCards}
@@ -624,6 +670,7 @@ export const Playground = ({ fx, music, sound, level }) => {
           getCardsFromLayer={getCardsFromLayer}
           allCards={allCards}
           render={renderLayers}
+          start={gameStarted}
         />
       )}
       <OptBtn onClick={play} $cur_theme={theme}>

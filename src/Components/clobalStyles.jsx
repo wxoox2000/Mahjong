@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import 'modern-normalize';
 
 export const GlobalStyles = createGlobalStyle`
+
 body {
   font-family: sans-serif;
 }

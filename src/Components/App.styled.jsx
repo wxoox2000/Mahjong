@@ -1,7 +1,7 @@
-import styled, { keyframes } from 'styled-components';
-import fuji from '../assets/themes/fuji-dark.png';
-import lake from '../assets/themes/lakeside.png';
-import art from '../assets/themes/old-art.png';
+import styled, { keyframes } from "styled-components";
+import fuji from "../assets/themes/fuji-dark.png";
+import lake from "../assets/themes/lakeside.png";
+import art from "../assets/themes/old-art.png";
 
 const FadeIn = keyframes`
   0% {
@@ -19,7 +19,7 @@ const FadeOut = keyframes`
     opacity: 0;
   }
 `;
-const PickTheme = p => {
+const PickTheme = (p) => {
   switch (p.$bgtheme) {
     case "fuji":
       return fuji;

@@ -1,34 +1,38 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 function choosed(p) {
   const color = p.theme[p.$cur_theme].cardBorder;
   switch (p.$choosed) {
     case false:
-      return `border: 1px solid ${color};`;
+      return `  border-left: 5px solid ${color};
+      border-bottom: 5px solid ${color};
+      border-top: 1px solid ${color};
+      border-right: 1px solid ${color};    
+    `;
     case true:
-      return 'border: 5px solid green;';
+      return "border: 5px solid green;";
     default:
       break;
   }
 }
 function error(p) {
-  if (!p.$wrongpair && p.className === 'choosed') {
-    return 'border: 5px solid red;';
+  if (!p.$wrongpair && p.className === "choosed") {
+    return "border: 5px solid red;";
   }
 }
 
 function allow(p) {
   switch (p.$allow) {
     case true:
-      return 'pointer-events: all;';
+      return "pointer-events: all;";
     case false:
-      return `pointer-events: none; filter: grayscale(0.8);  background-color: #787676;`;
+      return `pointer-events: none; filter: grayscale(0.5);  background-color: #adacac;`;
     default:
       break;
   }
 }
 
-export const MojangCard = styled.div.attrs(p => ({
+export const MojangCard = styled.div.attrs((p) => ({
   style: {
     top: p.$pos.top,
     left: p.$pos.left,
@@ -42,7 +46,7 @@ export const MojangCard = styled.div.attrs(p => ({
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${p => p.theme[p.$cur_theme].cardBg};
+  background-color: ${(p) => p.theme[p.$cur_theme].cardBg};
   ${allow}
   ${choosed}
   ${error}
