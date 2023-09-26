@@ -72,6 +72,9 @@ export const Playfield = styled.div`
   top: calc(50% - 500px);
   left: calc(50% - 500px);
   zoom: 0.6;
+  @media (max-width: 425px) {
+    zoom: 0.22;
+  }
   &.closing {
     animation: ${popOut} 700ms ease-in-out 1 normal forwards;
   }
